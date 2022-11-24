@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:note1/style/app_style.dart';
@@ -66,12 +65,12 @@ class _NoteEditorScreeState extends State<NoteEditorScree> {
           FirebaseFirestore.instance.collection("Notes").add({
             "note_title":_titleController.text,
             "creation_date":date,
-            "note_content":_mainController,
+            "note_content":_mainController.text,
             "color_id":color_id,
 
           }).then((value) {
             print(value.id);
-            Navigator.pop(context);}).catchError((error)=>print('Faield to add note'));
+            Navigator.pop(context);}).catchError((error)=>print('Faield to add note $error'));
         },
         child: Icon(Icons.save),
       ),

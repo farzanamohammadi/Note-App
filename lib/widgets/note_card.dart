@@ -21,10 +21,26 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
           SizedBox(height: 4.0,),
           Text(doc['creation_date'],style: AppStyle.dateTitle,),
           SizedBox(height: 8.0,),
-          Text(doc['note_content'],style: AppStyle.mainContent,overflow: TextOverflow.ellipsis,)
+          Text(doc['note_content'],style: AppStyle.mainContent,overflow: TextOverflow.ellipsis,),
 
+          SizedBox(height: 10,),
+       Row(
+         mainAxisAlignment: MainAxisAlignment.end,
+         children: [ IconButton(
+         onPressed: (){
+           delete(doc.id);
+         },
+         icon: Icon(Icons.delete_outline,color: Color(0xFF000633)
+             ),
+       )],)
         ],
       ),
     ),
   );
+
+}
+delete(item){
+  DocumentReference documentReference=
+  FirebaseFirestore.instance.collection("Notes").doc(item);
+  documentReference.delete().whenComplete(() => print("successfully deleted"));
 }
